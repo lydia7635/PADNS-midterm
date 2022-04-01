@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+import App from "./Containers/App";
 
 ReactDOM.render(
   <React.StrictMode>
