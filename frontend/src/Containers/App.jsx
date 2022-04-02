@@ -2,6 +2,7 @@ import Navbar from "../Components/Navbar";
 import About from "../Components/About";
 import NotFound from "../Components/NotFound";
 import Chat from "./Chat";
+import Login from "./Login";
 import services from "../Services";
 // import Login from "./components/Login";
 // import Home from "./components/Home";
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<About setPage={setPage} />} />
           <Route exact path="/chat" element={<Chat setPage={setPage} />} />
+          <Route exact path="/login" element={<Login setPage={setPage} />} />
           <Route path="*" element={<NotFound setPage={setPage} />} />{" "}
         </Routes>
       </div>

@@ -4,5 +4,5 @@ module.exports = {
     extend: {},
   },
   // eslint-disable-next-line no-undef
-  plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar")],
+  plugins: [require("tailwind-scrollbar")],
 };

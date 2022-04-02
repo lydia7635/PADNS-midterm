@@ -17,7 +17,6 @@
     "vite-plugin-svgr": "^1.1.0"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.0",
     "@vitejs/plugin-react": "^1.0.7",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.12.0",
