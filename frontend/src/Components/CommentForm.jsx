@@ -47,7 +47,7 @@ const CommentForm = ({
         </div>
         <div className="w-16 my-5 mr-2 flex items-center justify-center">
           <SendIcon
-            className="h-10 w-10 cursor-pointer hover:invert"
+            className="h-12 w-12 p-1.5 rounded-full cursor-pointer hover:stroke-slate-100 hover:bg-slate-500"
             onClick={handleFormSubmit}
           />
         </div>

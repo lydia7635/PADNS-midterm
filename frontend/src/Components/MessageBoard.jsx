@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 import { Fragment } from "react";
 import moment from "moment";
 
@@ -9,6 +11,10 @@ const multipleLines = (text) =>
       <br />
     </Fragment>
   ));
+
+const classNames = (...classes) => {
+  return classes.filter(Boolean).join(" ");
+};
 
 const MessageBoard = ({ comments, commentsFooter }) => {
   return (
@@ -32,10 +38,18 @@ const MessageBoard = ({ comments, commentsFooter }) => {
                   {comment.name}
                 </div>
               </div>
-              <div className="relative w-full p-1">
-                <div className="p-1 mb-8">{multipleLines(comment.message)}</div>
-                <div className="absolute right-0 bottom-0 h-8 text-right pr-2">
+              <div className="relative w-5/6 p-1">
+                <div className="p-1 mb-8 break-words">
+                  {multipleLines(comment.message)}
+                </div>
+                <div className="absolute right-0 bottom-0 h-8 text-right flex flex-row items-center">
                   {moment(comment.timestamp).format("YYYY/MM/DD HH:mm:ss")}
+                  <DeleteIcon
+                    className={classNames(
+                      true ? "" : "invisible",
+                      "h-8 w-8 m-1 p-1 cursor-pointer hover:stroke-red-600 hover:bg-slate-600 hover:rounded-full"
+                    )}
+                  />
                 </div>
               </div>
             </div>
