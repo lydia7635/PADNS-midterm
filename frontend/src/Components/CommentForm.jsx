@@ -8,7 +8,6 @@ const CommentForm = ({
   handleTextInputChange,
   handleImageChange,
   handleEnterKey,
-  inputNameRef,
   inputMessageRef,
 }) => {
   return (
@@ -19,7 +18,7 @@ const CommentForm = ({
             id="avatar"
             className="w-32 hidden"
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpg, image/jpeg"
             name="avatar"
             onChange={handleImageChange}
           />
@@ -36,17 +35,8 @@ const CommentForm = ({
           </label>
         </div>
         <div className="flex flex-col w-[calc(100%-10rem)]">
-          <input
-            className="w-2/6 rounded-md mt-2 mb-1 p-1 placeholder:text-slate-600 bg-slate-400 text-slate-900 focus:outline outline-slate-800 outline-2"
-            name="name"
-            placeholder="name"
-            value={textInput.name}
-            onChange={handleTextInputChange}
-            onKeyDown={handleEnterKey}
-            ref={inputNameRef}
-          />
           <textarea
-            className="rounded-md mt-1 mb-2 p-1 h-full resize-none scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-800 placeholder:text-slate-600 bg-slate-400 text-slate-900 focus:outline outline-slate-800 outline-2"
+            className="rounded-md my-2 p-1 h-full resize-none scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-800 placeholder:text-slate-600 bg-slate-400 text-slate-900 focus:outline outline-slate-800 outline-2"
             name="message"
             placeholder="messages..."
             value={textInput.message}
@@ -55,7 +45,7 @@ const CommentForm = ({
             ref={inputMessageRef}
           />
         </div>
-        <div className="w-16 my-5 flex items-end justify-center">
+        <div className="w-16 my-5 mr-2 flex items-center justify-center">
           <SendIcon
             className="h-10 w-10 cursor-pointer hover:invert"
             onClick={handleFormSubmit}

@@ -5,9 +5,8 @@ import MessageBoard from "../Components/MessageBoard";
 import CommentForm from "../Components/CommentForm";
 import defaultAvatar from "../../assets/img/default-avatar.png";
 
-const Chat = ({ setPage }) => {
+const Chat = ({ setPage, isLogin }) => {
   const commentsFooter = useRef(null);
-  const inputNameRef = useRef(null);
   const inputMessageRef = useRef(null);
   const [textInput, setTextInput] = useState({
     name: "",
@@ -56,13 +55,7 @@ const Chat = ({ setPage }) => {
 
   const handleEnterKey = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
-      if (event.target.name === "name") {
-        inputMessageRef.current.focus();
-        event.preventDefault();
-      } else if (event.target.name == "message") {
-        handleFormSubmit(event);
-        inputNameRef.current.focus();
-      }
+      handleFormSubmit(event);
     }
   };
 
@@ -71,7 +64,9 @@ const Chat = ({ setPage }) => {
   }, []);
 
   useEffect(() => {
-    inputNameRef.current.focus();
+    if (isLogin) {
+      inputMessageRef.current.focus();
+    }
   }, []);
 
   const scrollToBottom = () => {
@@ -88,15 +83,18 @@ const Chat = ({ setPage }) => {
     <>
       <div className="mb-32">
         <MessageBoard comments={comments} commentsFooter={commentsFooter} />
-        <CommentForm
-          textInput={textInput}
-          handleTextInputChange={handleTextInputChange}
-          handleFormSubmit={handleFormSubmit}
-          handleImageChange={handleImageChange}
-          handleEnterKey={handleEnterKey}
-          inputNameRef={inputNameRef}
-          inputMessageRef={inputMessageRef}
-        />
+        {isLogin ? (
+          <CommentForm
+            textInput={textInput}
+            handleTextInputChange={handleTextInputChange}
+            handleFormSubmit={handleFormSubmit}
+            handleImageChange={handleImageChange}
+            handleEnterKey={handleEnterKey}
+            inputMessageRef={inputMessageRef}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

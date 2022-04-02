@@ -25,7 +25,11 @@ function App() {
       <div className="mt-16">
         <Routes>
           <Route exact path="/" element={<About setPage={setPage} />} />
-          <Route exact path="/chat" element={<Chat setPage={setPage} />} />
+          <Route
+            exact
+            path="/chat"
+            element={<Chat setPage={setPage} isLogin={isLogin} />}
+          />
           <Route exact path="/login" element={<Login setPage={setPage} />} />
           <Route
             exact
