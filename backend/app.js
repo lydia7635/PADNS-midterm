@@ -3,9 +3,12 @@ import session from "express-session";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { apiRouter } from "./routes";
+
+// eslint-disable-next-line no-underscore-dangle
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const port = process.env.PORT || 8000;
 const { SESSION_SECRET } = process.env;
+const oneDay = 1000 * 60 * 60 * 24;
 
 if (!SESSION_SECRET) {
   throw new Error("SESSION_SECRET environment variable not set!");
@@ -22,11 +25,11 @@ app.use(
       path: "/",
       httpOnly: true,
       secure: false,
-      maxAge: null,
+      maxAge: oneDay,
     },
     // use random secret
     secret: SESSION_SECRET,
-    name: "sessionId", // don't omit this option
+    name: "sessIndex", // don't omit this option
     resave: false,
     saveUninitialized: false,
   })

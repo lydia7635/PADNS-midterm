@@ -28,7 +28,7 @@ function Login({ setPage }) {
     services.auth
       .login({ username, password })
       .then(() => {
-        navigate("/");
+        navigate("/chat");
       })
       .catch(() => {
         setReadOnly(false);

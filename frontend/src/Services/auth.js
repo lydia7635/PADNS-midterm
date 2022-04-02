@@ -22,4 +22,13 @@ export const makeAuth = (instance) => ({
       }, 3000);
     });
   },
+  /**
+   * @param {{
+   *   username: string,
+   *   password: string,
+   * }}
+   */
+  register({ username, password }) {
+    return instance.post("/register", { username, password });
+  },
 });

@@ -24,13 +24,27 @@ function Register({ setPage }) {
   /** @type {React.FormEventHandler<HTMLFormElement>} */
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    if (username.trim().length === 0) {
+      alert("Username cannot be empty string or contain only spaces.");
+      return;
+    }
+    if (password.length === 0) {
+      alert("Password cannot be empty string.");
+      return;
+    }
+
     setReadOnly(true);
     services.auth
-      .login({ username, password })
+      .register({ username, password })
       .then(() => {
-        navigate("/");
+        navigate("/login");
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e.response.status === 409) {
+          alert("Duplicated username.");
+        } else {
+          alert("Register failed.");
+        }
         setReadOnly(false);
       });
   };

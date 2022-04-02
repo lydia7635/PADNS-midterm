@@ -5,7 +5,6 @@ import Spinner from "./Spinner";
 function RegisterBox({
   username,
   password,
-  password2,
   readOnly,
   handleTextInputChange,
   handleFormSubmit,
@@ -41,19 +40,6 @@ function RegisterBox({
                   className="mt-2 block w-full rounded-2xl px-2 py-1 bg-slate-400 text-slate-900 focus:outline outline-slate-800 outline-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:select-none"
                   placeholder=""
                   value={password}
-                  readOnly={readOnly}
-                  disabled={readOnly}
-                  onChange={handleTextInputChange}
-                />
-              </label>
-              <label className="block text-left">
-                <span className="text-xl">Confirm Password</span>
-                <input
-                  type="password"
-                  name="password2"
-                  className="mt-2 block w-full rounded-2xl px-2 py-1 bg-slate-400 text-slate-900 focus:outline outline-slate-800 outline-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:select-none"
-                  placeholder=""
-                  value={password2}
                   readOnly={readOnly}
                   disabled={readOnly}
                   onChange={handleTextInputChange}

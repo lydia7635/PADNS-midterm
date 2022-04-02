@@ -1,4 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 import { Sequelize, Model, DataTypes } from "sequelize";
+
 const { DATABASE_URL } = process.env;
 
 if (!DATABASE_URL) {
@@ -18,7 +20,8 @@ export class User extends Model {}
 User.init(
   {
     username: DataTypes.STRING,
-    birthday: DataTypes.DATE,
+    password: DataTypes.STRING,
   },
   { sequelize, modelName: "user" }
 );
+User.sync();

@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import express from "express";
 import csrf from "csurf";
 import { setupUserController } from "../controllers";
