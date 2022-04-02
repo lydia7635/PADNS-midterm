@@ -14,6 +14,7 @@ function App() {
   const [page, setPage] = useState("About");
   const visitors = NaN;
   const [isLogin, setIsLogin] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     services.auth.getCsrf();
@@ -21,22 +22,39 @@ function App() {
 
   return (
     <>
-      <Navbar page={page} visitors={visitors} isLogin={isLogin} />
+      <Navbar
+        page={page}
+        visitors={visitors}
+        isLogin={isLogin}
+        username={username}
+      />
       <div className="mt-16">
         <Routes>
           <Route exact path="/" element={<About setPage={setPage} />} />
           <Route
             exact
             path="/chat"
-            element={<Chat setPage={setPage} isLogin={isLogin} />}
+            element={
+              <Chat setPage={setPage} isLogin={isLogin} username={username} />
+            }
           />
-          <Route exact path="/login" element={<Login setPage={setPage} />} />
+          <Route
+            exact
+            path="/login"
+            element={
+              <Login
+                setPage={setPage}
+                setIsLogin={setIsLogin}
+                setUsername={setUsername}
+              />
+            }
+          />
           <Route
             exact
             path="/register"
             element={<Register setPage={setPage} />}
           />
-          <Route path="*" element={<NotFound setPage={setPage} />} />{" "}
+          <Route path="*" element={<NotFound setPage={setPage} />} />
         </Routes>
       </div>
     </>

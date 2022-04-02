@@ -5,11 +5,10 @@ import MessageBoard from "../Components/MessageBoard";
 import CommentForm from "../Components/CommentForm";
 import defaultAvatar from "../../assets/img/default-avatar.png";
 
-const Chat = ({ setPage, isLogin }) => {
+const Chat = ({ setPage, isLogin, username }) => {
   const commentsFooter = useRef(null);
   const inputMessageRef = useRef(null);
   const [textInput, setTextInput] = useState({
-    name: "",
     message: "",
     avatar: defaultAvatar,
   });
@@ -29,14 +28,13 @@ const Chat = ({ setPage, isLogin }) => {
       ...prev,
       {
         ...textInput,
-        name: textInput.name ? textInput.name : "匿名",
+        name: username ? username : "匿名",
         timestamp: new Date(),
         id: uuidv4(),
       },
     ]);
     setTextInput((prev) => ({
       ...prev,
-      name: "",
       message: "",
       avatar: defaultAvatar,
     }));

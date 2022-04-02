@@ -4,7 +4,7 @@ import services from "../Services";
 import LoginBox from "../Components/LoginBox";
 
 // eslint-disable-next-line react/prop-types
-function Login({ setPage }) {
+function Login({ setPage, setIsLogin, setUsername }) {
   const navigate = useNavigate();
   const [textInput, setTextInput] = useState({
     username: "",
@@ -24,19 +24,35 @@ function Login({ setPage }) {
   /** @type {React.FormEventHandler<HTMLFormElement>} */
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    if (username.trim().length === 0) {
+      alert("Username cannot be empty string or contain only spaces.");
+      return;
+    }
+    if (password.length === 0) {
+      alert("Password cannot be empty string.");
+      return;
+    }
+
     setReadOnly(true);
     services.auth
       .login({ username, password })
-      .then(() => {
+      .then((res) => {
+        setIsLogin(true);
+        setUsername(res.data.username);
         navigate("/chat");
       })
       .catch(() => {
+        alert("Login failed.");
         setReadOnly(false);
       });
   };
 
   useEffect(() => {
     setPage("Login");
+  }, []);
+
+  useEffect(() => {
+    services.auth.getCsrf();
   }, []);
 
   return (
