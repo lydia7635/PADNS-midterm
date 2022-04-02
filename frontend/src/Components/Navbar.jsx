@@ -29,7 +29,9 @@ const Navbar = ({ page, visitors, isLogin }) => {
               <Link to="/login">
                 <NavbarButton name="Login" selected={page === "Login"} />
               </Link>
-              <NavbarButton name="Register" selected={false} />
+              <Link to="/register">
+                <NavbarButton name="Register" selected={page === "Register"} />
+              </Link>
             </>
           )}
         </div>
