@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import NavbarButton from "./NavbarButton";
 
-const Navbar = ({ page, visitors, isLogin, username }) => {
+const Navbar = ({ page, visitors, isLogin, username, logout }) => {
   return (
     <nav className="bg-slate-700 mx-auto px-4 fixed z-10 top-0 w-full flex items-center justify-between h-16">
       <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
@@ -21,8 +21,10 @@ const Navbar = ({ page, visitors, isLogin, username }) => {
         <div className="flex space-x-4">
           {isLogin ? (
             <>
-              <div className="px-3 py-2 text-lg">Hello, {username}</div>
-              <NavbarButton name="Logout" selected={false} />
+              <div className="px-3 py-2 text-lg">Hi, {username}.</div>
+              <div onClick={logout}>
+                <NavbarButton name="Logout" selected={false} />
+              </div>
             </>
           ) : (
             <>

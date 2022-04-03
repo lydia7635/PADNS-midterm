@@ -8,13 +8,30 @@ import services from "../Services";
 // import Login from "./components/Login";
 // import Home from "./components/Home";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+  const saveUsername = sessionStorage.getItem("username");
   const [page, setPage] = useState("About");
   const visitors = NaN;
-  const [isLogin, setIsLogin] = useState(false);
-  const [username, setUsername] = useState("");
+  const [isLogin, setIsLogin] = useState(saveUsername ? true : false);
+  const [username, setUsername] = useState(saveUsername || "");
+
+  const logout = () => {
+    services.auth
+      .logout()
+      .then(() => {
+        setIsLogin(false);
+        setUsername("");
+        sessionStorage.clear();
+        navigate("/");
+      })
+      .catch(() => {
+        alert("You are not logged in.");
+        navigate("/login");
+      });
+  };
 
   useEffect(() => {
     services.auth.getCsrf();
@@ -27,6 +44,7 @@ function App() {
         visitors={visitors}
         isLogin={isLogin}
         username={username}
+        logout={logout}
       />
       <div className="mt-16">
         <Routes>

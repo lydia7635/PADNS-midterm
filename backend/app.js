@@ -8,7 +8,6 @@ import { apiRouter } from "./routes";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const port = process.env.PORT || 8000;
 const { SESSION_SECRET } = process.env;
-const oneDay = 1000 * 60 * 60 * 24;
 
 if (!SESSION_SECRET) {
   throw new Error("SESSION_SECRET environment variable not set!");
@@ -25,11 +24,11 @@ app.use(
       path: "/",
       httpOnly: true,
       secure: false,
-      maxAge: oneDay,
+      maxAge: null,
     },
     // use random secret
     secret: SESSION_SECRET,
-    name: "sessIndex", // don't omit this option
+    name: "sessionID", // don't omit this option
     resave: false,
     saveUninitialized: false,
   })

@@ -53,6 +53,10 @@ function Register({ setPage }) {
     setPage("Register");
   }, []);
 
+  useEffect(() => {
+    services.auth.getCsrf();
+  }, []);
+
   return (
     <RegisterBox
       username={username}

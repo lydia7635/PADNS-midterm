@@ -4,7 +4,7 @@ import services from "../Services";
 import LoginBox from "../Components/LoginBox";
 
 // eslint-disable-next-line react/prop-types
-function Login({ setPage, setIsLogin, setUsername }) {
+const Login = ({ setPage, setIsLogin, setUsername }) => {
   const navigate = useNavigate();
   const [textInput, setTextInput] = useState({
     username: "",
@@ -39,6 +39,7 @@ function Login({ setPage, setIsLogin, setUsername }) {
       .then((res) => {
         setIsLogin(true);
         setUsername(res.data.username);
+        sessionStorage.setItem("username", res.data.username);
         navigate("/chat");
       })
       .catch(() => {
@@ -64,6 +65,6 @@ function Login({ setPage, setIsLogin, setUsername }) {
       handleFormSubmit={handleFormSubmit}
     />
   );
-}
+};
 
 export default Login;

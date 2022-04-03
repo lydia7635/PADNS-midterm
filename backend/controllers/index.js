@@ -1,12 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import bcrypt from "bcryptjs";
 import { User } from "../models";
-
-const saltRounds = 10;
-
-const hashPassword = async (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(saltRounds));
-};
+import auth from "./auth";
+import register from "./register";
+import login from "./login";
+import logout from "./logout";
 
 /** @param {import('express').Router} r */
 export const setupUserController = (r) => {
@@ -53,77 +50,11 @@ export const setupUserController = (r) => {
     res.status(204).send();
   });
 
-  r.post("/register", async (req, res) => {
-    const { username, password } = req.body;
-    if (
-      typeof username === "string" &&
-      typeof password === "string" &&
-      username.trim().length !== 0 &&
-      password.length !== 0
-    ) {
-      const trimmedUsername = username.trim();
-      const hashedPassword = await hashPassword(password);
+  r.post("/register", register);
 
-      // Check not duplicated user.
-      const dupliUser = await User.findAll({
-        where: {
-          username: trimmedUsername,
-        },
-      });
-      if (dupliUser.length !== 0) {
-        res.status(409).send();
-        return;
-      }
+  r.post("/login", login);
 
-      await User.create({
-        username: trimmedUsername,
-        password: hashedPassword,
-      })
-        .then(() => {
-          res.status(201).send();
-        })
-        .catch(() => {
-          res.status(500).send();
-        });
-    } else {
-      // Either username or password is not string.
-      res.status(406).send();
-    }
-  });
-
-  r.post("/login", async (req, res) => {
-    const { username, password } = req.body;
-    if (
-      typeof username === "string" &&
-      typeof password === "string" &&
-      username.trim().length !== 0 &&
-      password.length !== 0
-    ) {
-      const trimmedUsername = username.trim();
-
-      // Check not duplicated user.
-      await User.findOne({
-        where: {
-          username: trimmedUsername,
-        },
-      })
-        .then((existedUser) => {
-          // Check password
-          if (bcrypt.compareSync(password, existedUser.password)) {
-            res.json({ username: trimmedUsername });
-            res.status(202).send();
-          } else {
-            res.status(403).send();
-          }
-        })
-        .catch(() => {
-          res.status(403).send();
-        });
-    } else {
-      // Either username or password is not string.
-      res.status(406).send();
-    }
-  });
+  r.post("/logout", auth, logout);
 };
 
 /**
