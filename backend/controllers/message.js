@@ -54,3 +54,35 @@ export const createMessage = async (req, res) => {
       res.status(500).send();
     });
 };
+
+export const deleteMessage = async (req, res) => {
+  Message.findOne({
+    where: {
+      id: req.body.id,
+    },
+    raw: true,
+  })
+    .then(async (message) => {
+      const user = await User.findOne({
+        where: {
+          id: message.userId,
+        },
+        raw: true,
+      });
+
+      if (user.username === req.session.username) {
+        Message.destroy({ where: { id: req.body.id } })
+          .then(() => {
+            res.status(202).send();
+          })
+          .catch(() => {
+            res.status(500).send();
+          });
+      } else {
+        res.status(403).send();
+      }
+    })
+    .catch(() => {
+      res.status(500).send();
+    });
+};

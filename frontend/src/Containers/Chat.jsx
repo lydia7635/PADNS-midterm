@@ -37,6 +37,17 @@ const Chat = ({ username, avatar, setPage, isLogin }) => {
     });
   };
 
+  const handleDelete = (id) => {
+    services.chat
+      .deleteMessage({ id })
+      .then(() => {
+        getMessages();
+      })
+      .catch(() => {
+        alert("You cannot delete this message.");
+      });
+  };
+
   useEffect(() => {
     setPage("Chat");
   }, []);
@@ -72,6 +83,7 @@ const Chat = ({ username, avatar, setPage, isLogin }) => {
           username={username}
           comments={comments}
           commentsFooter={commentsFooter}
+          handleDelete={handleDelete}
         />
         {isLogin ? (
           <CommentForm

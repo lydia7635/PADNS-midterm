@@ -16,7 +16,7 @@ const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const MessageBoard = ({ username, comments, commentsFooter }) => {
+const MessageBoard = ({ username, comments, commentsFooter, handleDelete }) => {
   return (
     <>
       <div className="pt-2 flex flex-col col-auto items-center">
@@ -49,6 +49,7 @@ const MessageBoard = ({ username, comments, commentsFooter }) => {
                       comment.username === username ? "" : "invisible",
                       "h-8 w-8 m-1 p-1 cursor-pointer hover:stroke-red-600 hover:bg-slate-600 hover:rounded-full"
                     )}
+                    onClick={() => handleDelete(comment.id)}
                   />
                 </div>
               </div>

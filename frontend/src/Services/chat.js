@@ -9,6 +9,10 @@ export const makeChat = (instance) => ({
     return instance.post("/message", { message });
   },
 
+  deleteMessage({ id }) {
+    return instance.delete("/message", { data: { id } });
+  },
+
   getMessages() {
     return instance.get("/messages");
   },
