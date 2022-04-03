@@ -25,14 +25,16 @@ function App() {
     services.auth
       .logout()
       .then(() => {
-        setIsLogin(false);
-        setUsername("");
-        sessionStorage.clear();
         navigate("/");
       })
       .catch(() => {
         alert("You are not logged in.");
         navigate("/login");
+      })
+      .finally(() => {
+        setIsLogin(false);
+        setUsername("");
+        sessionStorage.clear();
       });
   };
 
