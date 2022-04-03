@@ -21,7 +21,8 @@ const login = async (req, res) => {
         // Check password
         if (bcrypt.compareSync(password, existedUser.password)) {
           req.session.username = trimmedUsername;
-          res.status(202).json({ username: trimmedUsername }).send();
+          const { avatar } = existedUser;
+          res.status(202).json({ username: trimmedUsername, avatar }).send();
         } else {
           res.status(403).send();
         }

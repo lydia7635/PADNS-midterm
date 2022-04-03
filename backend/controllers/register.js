@@ -8,7 +8,7 @@ const hashPassword = async (password) => {
 };
 
 const register = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, avatar } = req.body;
   if (
     typeof username === "string" &&
     typeof password === "string" &&
@@ -32,6 +32,7 @@ const register = async (req, res) => {
     await User.create({
       username: trimmedUsername,
       password: hashedPassword,
+      avatar,
     })
       .then(() => {
         res.status(201).send();

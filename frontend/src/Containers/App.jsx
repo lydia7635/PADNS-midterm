@@ -9,14 +9,17 @@ import services from "../Services";
 // import Home from "./components/Home";
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import defaultAvatar from "../../assets/img/default-avatar.png";
 
 function App() {
   const navigate = useNavigate();
   const saveUsername = sessionStorage.getItem("username");
+  const saveAvatar = sessionStorage.getItem("avatar");
   const [page, setPage] = useState("About");
   const visitors = NaN;
   const [isLogin, setIsLogin] = useState(saveUsername ? true : false);
   const [username, setUsername] = useState(saveUsername || "");
+  const [avatar, setAvatar] = useState(saveAvatar || defaultAvatar);
 
   const logout = () => {
     services.auth
@@ -53,7 +56,12 @@ function App() {
             exact
             path="/chat"
             element={
-              <Chat setPage={setPage} isLogin={isLogin} username={username} />
+              <Chat
+                setPage={setPage}
+                isLogin={isLogin}
+                username={username}
+                avatar={avatar}
+              />
             }
           />
           <Route
@@ -64,6 +72,7 @@ function App() {
                 setPage={setPage}
                 setIsLogin={setIsLogin}
                 setUsername={setUsername}
+                setAvatar={setAvatar}
               />
             }
           />

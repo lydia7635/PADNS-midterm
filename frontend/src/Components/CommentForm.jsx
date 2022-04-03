@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import { ReactComponent as SendIcon } from "../../assets/icons/send.svg";
-import { ReactComponent as UploadIcon } from "../../assets/icons/upload.svg";
 
 const CommentForm = ({
+  avatar,
   textInput,
   handleFormSubmit,
   handleTextInputChange,
-  handleImageChange,
   handleEnterKey,
   inputMessageRef,
 }) => {
@@ -14,25 +13,11 @@ const CommentForm = ({
     <>
       <div className="bg-slate-600 fixed bottom-0 z-10 h-28 w-full flex justify-start">
         <div className="w-28 flex items-center justify-center">
-          <input
-            id="avatar"
-            className="w-32 hidden"
-            type="file"
-            accept="image/png, image/jpg, image/jpeg"
-            name="avatar"
-            onChange={handleImageChange}
-          />
-          <label
-            htmlFor="avatar"
-            className="relative h-20 w-20 rounded-full cursor-pointer"
-          >
-            <img
-              className="absolute object-cover h-20 w-20 rounded-full"
-              src={textInput.avatar}
-              alt="default avatar"
-            ></img>
-            <UploadIcon className="h-20 w-20 p-5 absolute rounded-full opacity-0 hover:opacity-75" />
-          </label>
+          <img
+            className="absolute object-cover h-20 w-20 rounded-full"
+            src={avatar}
+            alt="default avatar"
+          ></img>
         </div>
         <div className="flex flex-col w-[calc(100%-10rem)]">
           <textarea

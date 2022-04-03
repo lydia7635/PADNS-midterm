@@ -3,14 +3,12 @@ import { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import MessageBoard from "../Components/MessageBoard";
 import CommentForm from "../Components/CommentForm";
-import defaultAvatar from "../../assets/img/default-avatar.png";
 
-const Chat = ({ setPage, isLogin, username }) => {
+const Chat = ({ setPage, isLogin, username, avatar }) => {
   const commentsFooter = useRef(null);
   const inputMessageRef = useRef(null);
   const [textInput, setTextInput] = useState({
     message: "",
-    avatar: defaultAvatar,
   });
   const [comments, setComments] = useState(
     /** @type {{name: string, message: string, timestamp}[]} */ ([])
@@ -36,19 +34,8 @@ const Chat = ({ setPage, isLogin, username }) => {
     setTextInput((prev) => ({
       ...prev,
       message: "",
-      avatar: defaultAvatar,
     }));
     event.preventDefault();
-  };
-
-  const handleImageChange = ({ target: { files } }) => {
-    if (files && files[0]) {
-      const newAvatar = files[0];
-      setTextInput((prev) => ({
-        ...prev,
-        avatar: URL.createObjectURL(newAvatar),
-      }));
-    }
   };
 
   const handleEnterKey = (event) => {
@@ -83,10 +70,10 @@ const Chat = ({ setPage, isLogin, username }) => {
         <MessageBoard comments={comments} commentsFooter={commentsFooter} />
         {isLogin ? (
           <CommentForm
+            avatar={avatar}
             textInput={textInput}
             handleTextInputChange={handleTextInputChange}
             handleFormSubmit={handleFormSubmit}
-            handleImageChange={handleImageChange}
             handleEnterKey={handleEnterKey}
             inputMessageRef={inputMessageRef}
           />

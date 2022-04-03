@@ -9,8 +9,8 @@ export const makeAuth = (instance) => ({
    *   password: string,
    * }}
    */
-  register({ username, password }) {
-    return instance.post("/register", { username, password });
+  register({ username, password, avatar }) {
+    return instance.post("/register", { username, password, avatar });
   },
   /**
    * @param {{

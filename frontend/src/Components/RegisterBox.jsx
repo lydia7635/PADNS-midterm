@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
+import { ReactComponent as UploadIcon } from "../../assets/icons/upload.svg";
 
 function RegisterBox({
   username,
   password,
+  preview,
   readOnly,
   handleTextInputChange,
   handleFormSubmit,
+  handleAvatarChange,
 }) {
   return (
     <div className="w-full h-full grid place-items-center">
@@ -45,6 +48,27 @@ function RegisterBox({
                   onChange={handleTextInputChange}
                 />
               </label>
+              <div className="w-full m-1 flex items-center justify-center">
+                <input
+                  id="avatar"
+                  className="w-32 hidden"
+                  type="file"
+                  accept="image/png, image/jpg, image/jpeg"
+                  name="avatar"
+                  onChange={handleAvatarChange}
+                />
+                <label
+                  htmlFor="avatar"
+                  className="relative h-20 w-20 rounded-full cursor-pointer"
+                >
+                  <img
+                    className="absolute object-cover h-20 w-20 rounded-full"
+                    src={preview}
+                    alt="avatar"
+                  />
+                  <UploadIcon className="h-20 w-20 p-5 absolute rounded-full opacity-0 hover:opacity-75" />
+                </label>
+              </div>
               <button
                 type="submit"
                 className="relative my-4 flex-shrink-0 bg-slate-800 text-white text-lg font-semibold py-2 px-4 rounded-2xl hover:shadow-lg hover:bg-slate-900 focus:outline-none focus:ring focus:ring-slate-400 disabled:opacity-50 disabled:cursor-wait"
