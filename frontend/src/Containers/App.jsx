@@ -57,10 +57,10 @@ function App() {
             path="/chat"
             element={
               <Chat
-                setPage={setPage}
-                isLogin={isLogin}
                 username={username}
                 avatar={avatar}
+                setPage={setPage}
+                isLogin={isLogin}
               />
             }
           />

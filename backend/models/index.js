@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+// eslint-disable-next-line max-classes-per-file
 import { Sequelize, Model, DataTypes } from "sequelize";
 
 const { DATABASE_URL } = process.env;
@@ -25,4 +26,16 @@ User.init(
   },
   { sequelize, modelName: "user" }
 );
+
+export class Message extends Model {}
+Message.init(
+  {
+    message: DataTypes.STRING,
+    timestamp: DataTypes.DATE,
+  },
+  { sequelize, modelName: "message" }
+);
+User.hasMany(Message);
+
 User.sync();
+Message.sync();

@@ -16,7 +16,7 @@ const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const MessageBoard = ({ comments, commentsFooter }) => {
+const MessageBoard = ({ username, comments, commentsFooter }) => {
   return (
     <>
       <div className="pt-2 flex flex-col col-auto items-center">
@@ -35,7 +35,7 @@ const MessageBoard = ({ comments, commentsFooter }) => {
                   alt="default avatar"
                 ></img>
                 <div className="text-center align-middle mt-1 w-full overflow-hidden text-ellipsis">
-                  {comment.name}
+                  {comment.username}
                 </div>
               </div>
               <div className="relative w-5/6 p-1">
@@ -46,7 +46,7 @@ const MessageBoard = ({ comments, commentsFooter }) => {
                   {moment(comment.timestamp).format("YYYY/MM/DD HH:mm:ss")}
                   <DeleteIcon
                     className={classNames(
-                      true ? "" : "invisible",
+                      comment.username === username ? "" : "invisible",
                       "h-8 w-8 m-1 p-1 cursor-pointer hover:stroke-red-600 hover:bg-slate-600 hover:rounded-full"
                     )}
                   />

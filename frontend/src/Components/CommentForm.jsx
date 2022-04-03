@@ -3,9 +3,9 @@ import { ReactComponent as SendIcon } from "../../assets/icons/send.svg";
 
 const CommentForm = ({
   avatar,
-  textInput,
+  message,
+  setMessage,
   handleFormSubmit,
-  handleTextInputChange,
   handleEnterKey,
   inputMessageRef,
 }) => {
@@ -24,8 +24,8 @@ const CommentForm = ({
             className="rounded-md my-2 p-1 h-full resize-none scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-800 placeholder:text-slate-600 bg-slate-400 text-slate-900 focus:outline outline-slate-800 outline-2"
             name="message"
             placeholder="messages..."
-            value={textInput.message}
-            onChange={handleTextInputChange}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleEnterKey}
             ref={inputMessageRef}
           />

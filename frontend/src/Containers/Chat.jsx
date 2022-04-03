@@ -1,41 +1,28 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 import MessageBoard from "../Components/MessageBoard";
 import CommentForm from "../Components/CommentForm";
+import services from "../Services";
 
-const Chat = ({ setPage, isLogin, username, avatar }) => {
+const Chat = ({ username, avatar, setPage, isLogin }) => {
   const commentsFooter = useRef(null);
   const inputMessageRef = useRef(null);
-  const [textInput, setTextInput] = useState({
-    message: "",
-  });
-  const [comments, setComments] = useState(
-    /** @type {{name: string, message: string, timestamp}[]} */ ([])
-  );
-
-  const handleTextInputChange = ({ target: { name, value } }) => {
-    setTextInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [message, setMessage] = useState("");
+  const [comments, setComments] = useState([]);
 
   const handleFormSubmit = (event) => {
-    setComments((prev) => [
-      ...prev,
-      {
-        ...textInput,
-        name: username ? username : "匿名",
-        timestamp: new Date(),
-        id: uuidv4(),
-      },
-    ]);
-    setTextInput((prev) => ({
-      ...prev,
-      message: "",
-    }));
     event.preventDefault();
+    services.chat
+      .createMessage({ message })
+      .then(() => {
+        setMessage("");
+      })
+      .catch(() => {
+        alert("Failed to send message.");
+      })
+      .finally(() => {
+        getMessages();
+      });
   };
 
   const handleEnterKey = (event) => {
@@ -44,14 +31,28 @@ const Chat = ({ setPage, isLogin, username, avatar }) => {
     }
   };
 
+  const getMessages = () => {
+    services.chat.getMessages().then((res) => {
+      setComments(res.data.messages);
+    });
+  };
+
   useEffect(() => {
     setPage("Chat");
+  }, []);
+
+  useEffect(() => {
+    services.auth.getCsrf();
   }, []);
 
   useEffect(() => {
     if (isLogin) {
       inputMessageRef.current.focus();
     }
+  }, []);
+
+  useEffect(() => {
+    getMessages();
   }, []);
 
   const scrollToBottom = () => {
@@ -67,12 +68,16 @@ const Chat = ({ setPage, isLogin, username, avatar }) => {
   return (
     <>
       <div className="mb-32">
-        <MessageBoard comments={comments} commentsFooter={commentsFooter} />
+        <MessageBoard
+          username={username}
+          comments={comments}
+          commentsFooter={commentsFooter}
+        />
         {isLogin ? (
           <CommentForm
             avatar={avatar}
-            textInput={textInput}
-            handleTextInputChange={handleTextInputChange}
+            message={message}
+            setMessage={setMessage}
             handleFormSubmit={handleFormSubmit}
             handleEnterKey={handleEnterKey}
             inputMessageRef={inputMessageRef}

@@ -4,6 +4,7 @@ import auth from "./auth";
 import register from "./register";
 import login from "./login";
 import logout from "./logout";
+import { getMessages, createMessage } from "./message";
 
 /** @param {import('express').Router} r */
 export const setupUserController = (r) => {
@@ -55,6 +56,10 @@ export const setupUserController = (r) => {
   r.post("/login", login);
 
   r.post("/logout", auth, logout);
+
+  r.get("/messages", getMessages);
+
+  r.post("/message", auth, createMessage);
 };
 
 /**
