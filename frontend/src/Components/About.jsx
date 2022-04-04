@@ -16,7 +16,9 @@ const About = ({ setPage }) => {
           alt="my avatar"
         />
         <h1 className="text-2xl m-6 font-bold">Chen, Yu-Yu</h1>
-        <div>想睡覺但寫程式寫到睡不著……</div>
+        <div>哈囉～我是台大資訊系的學生～</div>
+        <div>這是課程網路攻防與實習的 midterm project，</div>
+        <div>它很脆弱，請善待它🥲</div>
       </div>
     </>
   );
