@@ -22,7 +22,7 @@ User.init(
   {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    avatar: DataTypes.STRING(5000),
+    avatar: DataTypes.STRING(8000),
   },
   { sequelize, modelName: "user" }
 );
