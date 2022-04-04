@@ -13,8 +13,8 @@ import defaultAvatar from "../../assets/img/default-avatar.png";
 
 function App() {
   const navigate = useNavigate();
-  const saveUsername = sessionStorage.getItem("username");
-  const saveAvatar = sessionStorage.getItem("avatar");
+  const saveUsername = localStorage.getItem("username");
+  const saveAvatar = localStorage.getItem("avatar");
   const [page, setPage] = useState("About");
   const visitors = NaN;
   const [isLogin, setIsLogin] = useState(saveUsername ? true : false);
@@ -34,7 +34,7 @@ function App() {
       .finally(() => {
         setIsLogin(false);
         setUsername("");
-        sessionStorage.clear();
+        localStorage.clear();
       });
   };
 

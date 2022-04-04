@@ -40,8 +40,8 @@ const Login = ({ setPage, setIsLogin, setUsername, setAvatar }) => {
         setIsLogin(true);
         setUsername(res.data.username);
         setAvatar(res.data.avatar);
-        sessionStorage.setItem("username", res.data.username);
-        sessionStorage.setItem("avatar", res.data.avatar);
+        localStorage.setItem("username", res.data.username);
+        localStorage.setItem("avatar", res.data.avatar);
         navigate("/chat");
       })
       .catch(() => {
